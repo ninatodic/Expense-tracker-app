@@ -11,6 +11,7 @@ let income = 0;
 let expense = 0;
 let balance = 0;
 
+//add new transaction
 function addNewTransaction() {
   getInput();
   updateBalance();
@@ -18,20 +19,23 @@ function addNewTransaction() {
   clearInput();
 }
 
+//clear input fields after adding new transaction
 function clearInput() {
   textField.value = '';
   amountField.value = '';
 }
 
+//alert if all fields are not filled, else save input from fields in variables
 function getInput() {
   if (textField.value == '' || amountField.value == '') {
     alert('Please fill Text and Amount fields before submitting');
   } else {
     text = textField.value;
-    amount = parseFloat(amountField.value);
+    amount = +amountField.value;
   }
 }
 
+//update income/expense and main balanse
 function updateBalance() {
   if (amount >= 0) {
     income += amount;
@@ -46,6 +50,7 @@ function updateBalance() {
   balanceAmount.innerHTML = `$${balanceWithDecimals}`;
 }
 
+//add new entry in history
 function updateHistory() {
   //create elements
   let liElement = document.createElement('LI');
@@ -73,10 +78,9 @@ function updateHistory() {
   delBtn.addEventListener('click', deleteEntry);
 }
 
+//delete entry in history and update balances
 function deleteEntry(e) {
-  amount = parseFloat(
-    e.target.parentElement.childNodes[1].childNodes[1].innerHTML
-  );
+  amount = +e.target.parentElement.childNodes[1].childNodes[1].innerHTML;
 
   if (amount >= 0) {
     income -= amount;
@@ -92,5 +96,6 @@ function deleteEntry(e) {
 
   e.target.parentElement.remove();
 }
+
 //event listners
 addTransactionBtn.addEventListener('click', addNewTransaction);
